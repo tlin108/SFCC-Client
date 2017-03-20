@@ -37,11 +37,19 @@ class PeopleIndex extends Component {
   }
 
   render() {
-    console.log(this.state.peoples);
+    const { peoples } = this.state;
+
+    if (!peoples) {
+      return <div>Loading...</div>
+    }
 
     return (
       <div className="container">
         <h3 className="page">People List</h3>
+        <Link to="/people/new/" className="btn btn-primary">
+          Add a Person
+        </Link>
+        < hr />
         <ul className="list-group">
           {this.renderPeoples()}
         </ul>
