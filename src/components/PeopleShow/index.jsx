@@ -9,7 +9,18 @@ class PeopleShow extends Component {
   constructor(props) {
     super(props);
     
-    this.state = {};
+    this.state = {
+      people:{
+        name: "",
+        favoriteCity: ""
+      }
+    };
+  }
+
+  onCityChange(favoriteCity) {
+    this.setState({
+      people:{favoriteCity}
+    });
   }
 
   componentWillMount() {
@@ -37,6 +48,28 @@ class PeopleShow extends Component {
     .catch(err => console.log(err));
   }
 
+  onFormSubmit(e) {
+    e.preventDefault();
+    const { favoriteCity } = this.state.people;
+    const _id = this.props.match.params.id;
+    console.log(favoriteCity);
+    console.log(_id);
+    fetch('https://mysterious-island-57570.herokuapp.com/api/people', {
+      method: 'put',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        _id: _id,
+        favoriteCity: favoriteCity,
+      })
+    })
+    .then(data => console.log(data))
+    .then(() => this.context.router.history.push('/people/' + _id))
+    .catch(err => console.log(err));
+  }
+
   render() {
     const { people } = this.state;
 
@@ -55,6 +88,31 @@ class PeopleShow extends Component {
         </button>
         <h3>{people.name}</h3>
         <h6>Favorite City: {people.favoriteCity}</h6>
+
+        <hr />
+
+        <h2>Type below to update</h2>
+        <form onSubmit={e => this.onFormSubmit(e)}>
+          <div className="form-group">
+            <label>Favorite City Select: {people.favoriteCity}</label>
+            <select 
+              className="form-control"
+              onChange={e => this.onCityChange(e.target.value)}
+            >
+              <option value="New York">New York</option>
+              <option value="Brookyln">Brooklyn</option>
+              <option value="Queen">Queen</option>
+              <option value="Bronx">Bronx</option>
+              <option value="Staten Island">Staten Island</option>
+            </select>
+          </div>
+          <Link to="/people">Back to People List</Link>
+          <button 
+            type="submit" 
+            className="btn btn-primary float-right" >
+            Submit
+          </button>
+        </form>
       </div>
     );
   }
