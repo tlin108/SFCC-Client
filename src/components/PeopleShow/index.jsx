@@ -52,8 +52,6 @@ class PeopleShow extends Component {
     e.preventDefault();
     const { favoriteCity } = this.state.people;
     const _id = this.props.match.params.id;
-    console.log(favoriteCity);
-    console.log(_id);
     fetch('https://mysterious-island-57570.herokuapp.com/api/people', {
       method: 'put',
       headers: {
@@ -65,8 +63,7 @@ class PeopleShow extends Component {
         favoriteCity: favoriteCity,
       })
     })
-    .then(data => console.log(data))
-    .then(() => this.context.router.history.push('/people/' + _id))
+    .then(() => this.context.router.history.push('/people/'))
     .catch(err => console.log(err));
   }
 
