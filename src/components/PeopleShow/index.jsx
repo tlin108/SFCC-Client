@@ -1,7 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes  } from 'react';
 import { Link } from 'react-router-dom';
 
 class PeopleShow extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
   constructor(props) {
     super(props);
     
@@ -22,7 +26,15 @@ class PeopleShow extends Component {
   }
 
   onDeleteClick() {
-    console.log('clicked');
+    fetch('https://mysterious-island-57570.herokuapp.com/api/people/' + this.props.match.params.id, {
+      method: 'delete',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(()=> this.context.router.history.push('/people'))
+    .catch(err => console.log(err));
   }
 
   render() {
