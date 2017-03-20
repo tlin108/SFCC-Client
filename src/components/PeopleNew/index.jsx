@@ -12,7 +12,7 @@ class PeopleNew extends Component {
 
     this.state = {
       name: "",
-      favoriteCity: ""
+      favoriteCity: "New York"
     } 
   }
 
@@ -58,12 +58,15 @@ class PeopleNew extends Component {
           </div>
           <div className="form-group">
             <label>Favorite City Select: </label>
-            <select className="form-control" onChange={e => this.onCityChange(e.target.value)}>
-              <option>New York</option>
-              <option>Brooklyn</option>
-              <option>Queen</option>
-              <option>Bronx</option>
-              <option>Staten Island</option>
+            <select 
+              className="form-control"
+              onChange={e => this.onCityChange(e.target.value)}
+            >
+              <option value="New York">New York</option>
+              <option value="Brookyln">Brooklyn</option>
+              <option value="Queen">Queen</option>
+              <option value="Bronx">Bronx</option>
+              <option value="Staten Island">Staten Island</option>
             </select>
           </div>
           <Link to="/people">Back to People List</Link>
