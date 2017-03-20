@@ -1,8 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 
 
 class PeopleNew extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
   constructor() {
     super();
 
@@ -35,7 +39,7 @@ class PeopleNew extends Component {
       })
     })
     .then(res => res.json())
-    .then(data => console.log(data._id))
+    .then(data => this.context.router.history.push('/people/'+data._id))
     .catch(err => console.log(err));
   }
 

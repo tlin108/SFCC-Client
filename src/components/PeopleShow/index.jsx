@@ -21,6 +21,10 @@ class PeopleShow extends Component {
     .catch(err => console.log(err));
   }
 
+  onDeleteClick() {
+    console.log('clicked');
+  }
+
   render() {
     const { people } = this.state;
 
@@ -31,7 +35,10 @@ class PeopleShow extends Component {
     return (
       <div className="container">
         <Link to="/people">Back to People List</Link>
-        <button className="btn btn-danger float-right">
+        <button 
+          className="btn btn-danger float-right"
+          onClick={e => this.onDeleteClick()}
+        >
           Delete Post
         </button>
         <h3>{people.name}</h3>
