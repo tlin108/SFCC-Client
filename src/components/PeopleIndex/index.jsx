@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const peoples = [{
   "name": "Nancy",
@@ -22,14 +22,17 @@ const peoples = [{
   "favoriteCity": "Melgar",
   "id": 6
 }];
-
+    
 class PeopleIndex extends Component {
   renderPeoples() {
     return peoples.map((people) => {
       return (
-        <li className="list-group-item" key={people.id}>
-          <Link to={"people/" + people.id} className="posts-list">
-            <span className="float-right">{people.favoriteCity}</span>
+        <li className="list-group-item list-group-item-action flex-column align-items-start" key={people.id}>
+          <Link to={"people/" + people.id}>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">Name: {people.name}</h5>
+              <small>Favorite City: {people.favoriteCity}</small>
+            </div>
           </Link>
         </li>
       );
@@ -38,8 +41,8 @@ class PeopleIndex extends Component {
 
   render() {
     return (
-      <div>
-        <h3>People List</h3>
+      <div className="container">
+        <h3 className="page">People List</h3>
         <ul className="list-group">
           {this.renderPeoples()}
         </ul>

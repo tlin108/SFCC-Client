@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 
 import Routes from './routes';
 
-console.log(Routes);
 ReactDOM.render(
   <Routes />
   , document.getElementById('root')
