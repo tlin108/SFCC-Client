@@ -1,38 +1,35 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-const peoples = [{
-  "name": "Nancy",
-  "favoriteCity": "Arruda dos Vinhos",
-  "id": 7
-}, {
-  "name": "Timothy",
-  "favoriteCity": "Mutoko",
-  "id": 3
-}, {
-  "name": "Dennis",
-  "favoriteCity": "Trelleborg",
-  "id": 5
-}, {
-  "name": "Anthony",
-  "favoriteCity": "Schaumburg",
-  "id": 1
-}, {
-  "name": "Amanda",
-  "favoriteCity": "Melgar",
-  "id": 6
-}];
-    
 class PeopleIndex extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      peoples: []
+    };
+  }
+
+  componentDidMount() {
+    fetch('https://mysterious-island-57570.herokuapp.com/api/people', {
+      method: 'get',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(res => res.json())
+    .then(data => this.setState({peoples: data}))
+    .catch(err => console.log(err));
+  }
+
   renderPeoples() {
-    return peoples.map((people) => {
+    return this.state.peoples.map((people) => {
       return (
-        <li className="list-group-item list-group-item-action flex-column align-items-start" key={people.id}>
-          <Link to={"people/" + people.id}>
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">Name: {people.name}</h5>
-              <small>Favorite City: {people.favoriteCity}</small>
-            </div>
+        <li className="list-group-item" key={people._id}>
+          <Link to={"people/" + people._id}>
+            <h5 >Name: {people.name}</h5>
+            <small>Favorite City: {people.favoriteCity}</small>
           </Link>
         </li>
       );
@@ -40,6 +37,8 @@ class PeopleIndex extends Component {
   }
 
   render() {
+    console.log(this.state.peoples);
+
     return (
       <div className="container">
         <h3 className="page">People List</h3>
