@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import { fetchPeopleList } from '../../actions/index';
+
 class PeopleIndex extends Component {
   constructor(props) {
     super(props);
@@ -11,13 +13,7 @@ class PeopleIndex extends Component {
   }
 
   componentDidMount() {
-    fetch('https://mysterious-island-57570.herokuapp.com/api/people', {
-      method: 'get',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      }
-    })
+    fetchPeopleList()
     .then(res => res.json())
     .then(data => this.setState({peoples: data}))
     .catch(err => console.log(err));

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 
+import { createPeople } from '../../actions/index';
 
 class PeopleNew extends Component {
   static contextTypes = {
@@ -27,17 +28,7 @@ class PeopleNew extends Component {
   onFormSubmit(e) {
     e.preventDefault();
     const { name, favoriteCity } = this.state;
-    fetch('https://mysterious-island-57570.herokuapp.com/api/people', {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: name,
-        favoriteCity: favoriteCity,
-      })
-    })
+    createPeople(name, favoriteCity)
     .then(res => res.json())
     .then(data => this.context.router.history.push('/people/'+data._id))
     .catch(err => console.log(err));
