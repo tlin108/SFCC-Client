@@ -35,7 +35,7 @@ class PeopleIndex extends Component {
   render() {
     const { peoples } = this.state;
 
-    if (!peoples) {
+    if (peoples.length === 0) {
       return <div>Loading...</div>
     }
 

@@ -28,6 +28,11 @@ class PeopleNew extends Component {
   onFormSubmit(e) {
     e.preventDefault();
     const { name, favoriteCity } = this.state;
+
+    if (name === '') {
+      alert('please enter name');
+      return;
+    }
     createPeople(name, favoriteCity)
     .then(res => res.json())
     .then(data => this.context.router.history.push('/people/'+data._id))
